@@ -14,5 +14,11 @@ where a set of information about events in stored and handled in a peer-to-peer 
 ## What security and privacy concerns do you expect
 
 The main security issues expected are about hadling the difference storages systems between the database and the decentralized system, allow users to
-securely create private evenets and don't allow not authorized users to join it, and avoid users to see private information such as user sessions, user database information,
-user event history.
+securely create private evenets and don't allow not authorized users to join it, and avoid users to see private information such as user sessions, user database information, user event history.
+
+## Building blocks of our architecture
+
+1. "Backend": we will need to define smart contracts, a program that runs on the Ethereum blockchain and defines the logic behind the state changes     happening on the blockchain. In order to manage the node infrastructure in the blockchain, we could exploit a third-party serivce, like Infura or Alchemy.
+3. Database: we will use a decentralized off-chain storage solution, like IPFS or Swarm (the data is sent in a peer-to-peer network).
+4. Frontend: we could host the frontend on AWS, or on a decentralized storage solution, like IPFS or Swarm (not to create a centralization checkpoint).
+
