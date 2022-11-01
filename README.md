@@ -2,23 +2,37 @@
 
 ## What does your application do?
 
-The main goal of our application is to create a WEB 3 social network to handle events.
-In particular, it should allow users to sign up, login, create events, search for events, subscribe to events.
-In order to integrate our app with the WEB 3 technology we will use an API suchas alchemy
+The main functionality of our application is to allow users to upload images, that will be classified with a third party API, and for each category there will be a separate bucket into which the image will be stored with similar ones. Once the user access this bucket, he/she can do three actions :
+
+1. rate images
+2. chat with other live users
+3. view the images sorted by rates
+
+A not logged user can only see the bukets and the ranked images, while a logged user can rate and chat as well.
 
 ## What makes it different than a CRUD app
 
-The main difference is that our application will be developed using a WEB 3 framework, that differs from a CRUD app because it is decentralized, based on a blockchain,
-where a set of information about events in stored and handled in a peer-to-peer network, while another set of information about users is stored in a centralized database.
+It is different because of two main functionlaities:
+
+1. the use of a third party classifier
+2. the use of a live chat
 
 ## What security and privacy concerns do you expect
 
-The main security issues expected are about hadling the difference storages systems between the database and the decentralized system, allow users to
-securely create private evenets and don't allow not authorized users to join it, and avoid users to see private information such as user sessions, user database information, user event history.
+The main concerns are :
+
+1. Avoid not logged users to chat and rank images
+2. Avoid users to see other user's information
+3. Avoid other users to post images / chat messages with other user's identities (i.e with CSRF)
+4. Avoid users to upload / post in chats inapropiate contents (i.e we can use a third party API like safesearch)
 
 ## Building blocks of our architecture
 
-1. "Backend": we will need to define smart contracts, programs that runs on the blockchain and define the logic behind the state changes happening on it. In order to manage the node infrastructure in the blockchain, we could exploit a third-party serivce, like Infura or Alchemy.
-3. Database: we will use a decentralized off-chain storage solution, like IPFS or Swarm (the data is sent in a peer-to-peer network).
-4. Frontend: we could host the frontend on AWS, or on a decentralized storage solution, like IPFS or Swarm (not to create a centralization checkpoint).
+Our building block can be
+
+1. The use of a database to store bucket, images and user's informtion
+2. A front end application to store in local buckets
+3. A back-end application to handle all the main functionalities like login, image upload and bucket selection
+
+
 
