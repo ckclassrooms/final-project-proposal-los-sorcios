@@ -36,5 +36,5 @@ Our building block can be
 
 # TechStack
 
-Our Techstack can be found [here](https://github.com/ckclassrooms/final-project-proposal-los-sorcios/doumentation)
+Our Techstack can be found [here](https://github.com/ckclassrooms/final-project-proposal-los-sorcios/documentation)
 
