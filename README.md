@@ -34,5 +34,7 @@ Our building block can be
 2. A front end application to store in local buckets
 3. A back-end application to handle all the main functionalities like login, image upload and bucket selection
 
+# TechStack
 
+Our Techstack can be found [here](https://github.com/ckclassrooms/final-project-proposal-los-sorcios/doumentation)
 
