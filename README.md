@@ -1,4 +1,4 @@
-# Proposal
+# Project Proposal
 
 ## What does your application do?
 
