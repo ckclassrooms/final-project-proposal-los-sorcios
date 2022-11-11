@@ -9,7 +9,7 @@ serve(async (req) => {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'authorization, content-type, x-client-info, apikey',
   }
-  
+
   console.log("here is the server")
   // This is needed if you're planning to invoke your function from a browser.
   if (req.method === 'OPTIONS') {
@@ -17,9 +17,9 @@ serve(async (req) => {
   }
 
   try {
-    const { name } = await req.json()
+    const foo = await req.json()
     const data = {
-      message: `Hello ${name}!`,
+      message: foo.foo,
     }
 
     return new Response(JSON.stringify(data), {
