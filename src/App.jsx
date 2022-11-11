@@ -14,6 +14,7 @@ import { supabase } from './supabaseClient'
 function App() {
 
   const [session, setSession] = useState(null);
+  const [file, setFile] = useState(null);
 
   // Manage session with Github 
   useEffect(() => {
@@ -27,11 +28,19 @@ function App() {
   }, [])
 
   const invokeFunction = async() =>{
-    console.log("OK")
     const { data, error } = await supabase.functions.invoke('prova', {
-      body: { foo: 'bar' }
+      body: { filename: file.name },
     })
     console.log(data)
+
+  }
+
+  const onFileChange = event => {
+    setFile(event.target.files[0]);
+  };
+
+  const onFileUpload = () => {
+    invokeFunction();
   }
 
   return (
@@ -42,7 +51,10 @@ function App() {
           <Route path="/" element={<Landing session={session} setSession={setSession}/>} />
         </Routes>
     </div>
-    <button onClick={invokeFunction}>Click to reach the server</button>
+    <div>
+      <input type="file" onChange={onFileChange} />
+      <button onClick={onFileUpload}>Upload!</button>
+    </div>
     </>
   );
 }

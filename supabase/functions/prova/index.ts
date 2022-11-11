@@ -1,6 +1,5 @@
 import { serve } from 'https://deno.land/std@0.131.0/http/server.ts'
 
-
 console.log(`Function "browser-with-cors" up and running!`)
 
 serve(async (req) => {
@@ -17,9 +16,9 @@ serve(async (req) => {
   }
 
   try {
-    const foo = await req.json()
+    const image = await req.json()
     const data = {
-      message: foo.foo,
+      message: image,
     }
 
     return new Response(JSON.stringify(data), {
