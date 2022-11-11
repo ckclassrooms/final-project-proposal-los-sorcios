@@ -1,9 +1,15 @@
 import { serve } from 'https://deno.land/std@0.131.0/http/server.ts'
-import { corsHeaders } from '../_shared/cors.ts'
+
 
 console.log(`Function "browser-with-cors" up and running!`)
 
 serve(async (req) => {
+
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'authorization, content-type, x-client-info, apikey',
+  }
+  
   console.log("here is the server")
   // This is needed if you're planning to invoke your function from a browser.
   if (req.method === 'OPTIONS') {
