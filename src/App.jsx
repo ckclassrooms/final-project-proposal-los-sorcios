@@ -26,21 +26,24 @@ function App() {
     })
   }, [])
 
+  const invokeFunction = async() =>{
+    console.log("OK")
+    const { data, error } = await supabase.functions.invoke('prova', {
+      body: { foo: 'bar' }
+    })
+    console.log(data)
+  }
+
   return (
+    <>
     <div>
-      {!session ? (
-        <>
         <Nav/>
-        </>
-        ) : (
-        <>
-        <Nav session={session} setSession={setSession} key={session.user.id}/>
         <Routes>
           <Route path="/" element={<Landing session={session} setSession={setSession}/>} />
         </Routes>
-        </>
-      )}
     </div>
+    <button onClick={invokeFunction}>Click to reach the server</button>
+    </>
   );
 }
 
