@@ -45,6 +45,34 @@ function App() {
     console.log(data)
     */
    //console.log(decode(file.base64))
+
+    const googleVisionApiUrl = "https://vision.googleapis.com/v1/images:annotate?key=" // here api key should be added
+
+    const request = {
+      "requests":[
+        {
+          "image":{
+            "content": file.base64
+          },
+          "features":[
+            {
+              "type":"LABEL_DETECTION",
+              "maxResults":1
+            }
+          ]
+        }
+      ]
+    }
+
+    const response = await fetch(googleVisionApiUrl, {
+      method : 'POST',
+      mode : 'cors',
+      body : JSON.stringify(request)
+    })
+
+    console.log(response.text)
+
+
     const { data, error } = await supabase
     .storage
     .from('images')
@@ -61,7 +89,6 @@ function App() {
 
     //get base 64 of image
     let base64;
-    let baseURL = "";
     // Make new FileReader
     let reader = new FileReader();
   
@@ -73,7 +100,7 @@ function App() {
       base64 = reader.result;
       let updatedFile = file;
       updatedFile.base64 = base64;
-      console.log(base64);
+      //console.log(base64);
     
       // modify the file
       setFile(updatedFile);
@@ -101,10 +128,10 @@ function App() {
     </div>
     <div>
       <input type="file" onChange={onFileChange} />
-      <button onClick={callLambda}>Upload!</button>
+      <button onClick={invokeFunction}>Upload!</button>
     </div>
     <div>
-    <button onClick={getImg}>GetImg!</button>
+    <button onClick={invokeFunction}>GetImg!</button>
     </div>
     </>
   );
