@@ -2,6 +2,8 @@ import React from "react";
 import "./App.css";
 import Nav from './components/Navbar'
 import Landing from './components/Landing'
+import AddImages from "./components/AddImages";
+import DisplayImages from "./components/DisplayImages";
 import {
   Routes,
   Route
@@ -25,47 +27,15 @@ function App() {
     })
   }, [])
 
-  const callLambda = async() =>{
-    const { data, error } = await supabase.functions.invoke('prova', {
-      body: { name: file.name, size: file.size, type: file.type, base64: file.base64},
-    })
-    console.log(data)
-  }
-
-  const uploadImage = async() =>{
-    //get base 64 of image
-    let base64;
-    // Make new FileReader
-    let reader = new FileReader();
-    // Convert the file to base64 text
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      // from jpg image to base64
-      base64 = reader.result.split(',')[1];
-      let updatedFile = file;
-      updatedFile.base64 = base64;
-      // modify the file
-      setFile(updatedFile);
-      //call lambda with updated file
-      callLambda();
-    };
-  }
-
-  const setLocalFile = event => {
-    setFile(event.target.files[0]);
-  };
-
   return (
     <>
     <div>
         <Nav/>
         <Routes>
-          <Route path="/" element={<Landing session={session} setSession={setSession}/>} />
+          <Route path="/" element={<Landing file={file} setFile={setFile}/>} />
+          <Route path="/addImages" element={<AddImages file={file} setFile={setFile}/>} />
+          <Route path="/displayImages" element={<DisplayImages file={file} setFile={setFile}/>} />
         </Routes>
-    </div>
-    <div>
-      <input type="file" onChange={setLocalFile} />
-      <button onClick={uploadImage}>Upload image</button>
     </div>
     </>
   );

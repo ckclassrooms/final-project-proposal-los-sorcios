@@ -53,10 +53,13 @@ serve(async (req) => {
       .from('images')
       .insert({ name: file.name, size: file.size, label: label })
 
+    const name = label+':'+file.name
+    console.log(name)
+
     // insert image in the bucket
     const { data, error } = await supabaseClient.storage
     .from('images')
-    .upload( file.name, base64.toArrayBuffer(file.base64), {
+    .upload( name, base64.toArrayBuffer(file.base64), {
       contentType: 'image/jpg'})
 
     //craft the response to be sent to the client
