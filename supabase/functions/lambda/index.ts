@@ -2,6 +2,20 @@ import { serve } from 'https://deno.land/std@0.131.0/http/server.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.0.0'
 import { base64 } from "https://cdn.jsdelivr.net/gh/hexagon/base64@1/src/base64.js";
 
+
+function isExplicit(safeSearchJson: any){
+  const adult = safeSearchJson.responses[0].safeSearchAnnotation.adult
+  const spoof = safeSearchJson.responses[0].safeSearchAnnotation.spoof
+  const medical = safeSearchJson.responses[0].safeSearchAnnotation.medical
+  const violence = safeSearchJson.responses[0].safeSearchAnnotation.violence
+  const racy = safeSearchJson.responses[0].safeSearchAnnotation.racy
+
+  const explicits = [adult, spoof, medical, violence, racy]
+
+  return !explicits.every(explicit => explicit === 'VERY_UNLIKELY')
+  
+}
+
 serve(async (req) => {
   
   const corsHeaders = {
@@ -21,6 +35,39 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_ANON_KEY') ?? '',
       { global: { headers: { Authorization: req.headers.get('Authorization')! } } }
     )
+
+    // send request of explicit content detection to GOOGLE_CLOUD_VISION
+    const safeSearchRequest = {
+      "requests": [
+        {
+          "image": {
+            "content": file.base64
+          },
+          "features": [
+            {
+              "type": "SAFE_SEARCH_DETECTION"
+            },
+          ]
+        }
+      ]
+    }
+
+    const safeSearchResponse = await fetch(
+      Deno.env.get('GOOGLE_VISION_URL') ?? '', {
+      method : 'POST',
+      mode : 'cors',
+      body : JSON.stringify(safeSearchRequest)
+    });
+
+    const safeSearchJson = await safeSearchResponse.json();
+    const isExplicitContent = isExplicit(safeSearchJson)
+
+    if(isExplicitContent){
+      return new Response(JSON.stringify({ error: "Explicit Content Detected" }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      })
+    }
 
     // send request of labeling to GOOGLE_CLOUD_VISION
     const request = {
@@ -54,7 +101,6 @@ serve(async (req) => {
       .insert({ name: file.name, size: file.size, label: label })
 
     const name = label+':'+file.name
-    console.log(name)
 
     // insert image in the bucket
     const { data, error } = await supabaseClient.storage
