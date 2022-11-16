@@ -2,17 +2,34 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import { supabase } from '../supabaseClient';
 import Nav from './Navbar'
+import '../App.css'
+import logo from '../assets/loading.gif'
+
 
 function AddImages({ file, setFile }) {
+
+    const [errorMessage, setErrorMessage] = useState('');
+    const [enableUpload, setEnableUpload] = useState('');
+    const [doneMessage, setDoneMessage] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const callLambda = async() =>{
         const { data, error } = await supabase.functions.invoke('lambda', {
           body: { name: file.name, size: file.size, type: file.type, base64: file.base64},
         })
-        console.log(data)
+        setLoading(false)
+        if(!error){
+          setDoneMessage('Image uploaded successfully!');
+        }
+        else{
+          setDoneMessage('Ops... something went wrong, try again!')
+        }
+        
       }
     
     const uploadImage = async() =>{
+        setEnableUpload(false);
+        setLoading(true);
         //get base 64 of image
         let base64;
         // Make new FileReader
@@ -32,16 +49,36 @@ function AddImages({ file, setFile }) {
       }
     
     const setLocalFile = event => {
-        setFile(event.target.files[0]);
+        setDoneMessage('')
+        let image_type = event.target.files[0].type.split('/')[0]
+        if( image_type == 'image' ) {
+          setErrorMessage('')
+          setEnableUpload(true)
+          setFile(event.target.files[0]);
+        }
+        else {
+          setEnableUpload(false)
+          setErrorMessage('Please upload an image (png, jpg etc.)')
+        }
     };
 
     return (
         <>
-        <div>ADD IMAGES</div>
         <div>
             <input type="file" onChange={setLocalFile} />
-            <button onClick={uploadImage}>Upload image</button>
+            <button disabled={!enableUpload} onClick={uploadImage}>Upload image</button>
+            {
+              loading && (<img className='loading' src={logo} alt="loading..."/>)
+            }
+            
         </div>
+        {
+          errorMessage && (<p className='error'>{errorMessage}</p>)
+        }
+        {
+          doneMessage && (<p className='message'>{doneMessage}</p>)
+        }
+        
         </>
     )
 }

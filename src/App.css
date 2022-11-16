@@ -2,3 +2,16 @@
     margin: auto;
     width: 50%;
 }
+
+.error {
+    color:crimson;
+}
+
+.message{
+    color:seagreen;
+}
+
+.loading{
+    width: 2.5%;
+    margin-left: 1%;
+}
