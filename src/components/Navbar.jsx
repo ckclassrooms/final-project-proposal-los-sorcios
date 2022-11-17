@@ -33,6 +33,8 @@ function Nav({session, setSession}) {
             to="/addImages" end>Add Images</NavLink></li>
         <li className="nav-item"><NavLink className={({ isActive }) => "nav-link " + (isActive ? " active" : "")}
             to="/displayImages" end>Display Images</NavLink></li>
+        <li className="nav-item"><NavLink className={({ isActive }) => "nav-link " + (isActive ? " active" : "")}
+            to="/displayBuckets" end>Display Buckets</NavLink></li>
     </ul>)
 }
 

@@ -22,7 +22,7 @@ function AddImages({ file, setFile }) {
           setDoneMessage('Image uploaded successfully!');
         }
         else{
-          setDoneMessage('Ops... something went wrong, try again!')
+          setDoneMessage('Explicit content detected!')
         }
         
       }

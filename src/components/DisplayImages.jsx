@@ -9,24 +9,22 @@ function DisplayImages({file, setFile}) {
         const { data, error } = await supabase
             .storage
             .from('images')
-            .list('', {
-                limit: 100,
-                offset: 1,
-                sortBy: { column: 'name', order: 'asc' },
-        })
+            .list('', { offset: 1 })
         setImgs(data)
     }
+
     useEffect(() => {
         fetchImgs();
-        console.log(imgs)
       }, []);
 
     return (
-        <div>
+        <>
+        <div className='container'>
         {imgs != null &&
             imgs.map((singleImg, index) => (<div><img src={supabase_url+singleImg.name} height={200} width={200}/><p>{singleImg.name.split(':')[0]}</p></div>))
         }
         </div>
+        </>
     )
 }
 

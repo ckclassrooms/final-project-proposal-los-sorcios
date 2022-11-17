@@ -4,6 +4,7 @@ import Nav from './components/Navbar'
 import Landing from './components/Landing'
 import AddImages from "./components/AddImages";
 import DisplayImages from "./components/DisplayImages";
+import DisplayBuckets from "./components/DisplayBuckets";
 import {
   Routes,
   Route
@@ -35,6 +36,7 @@ function App() {
           <Route path="/" element={<Landing file={file} setFile={setFile}/>} />
           <Route path="/addImages" element={<AddImages file={file} setFile={setFile}/>} />
           <Route path="/displayImages" element={<DisplayImages file={file} setFile={setFile}/>} />
+          <Route path="/displayBuckets" element={<DisplayBuckets/>}/>
         </Routes>
     </div>
     </>

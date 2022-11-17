@@ -12,12 +12,11 @@ function isExplicit(safeSearchJson: any){
 
   const explicits = [adult, spoof, medical, violence, racy]
 
-  return !explicits.every(explicit => explicit === 'VERY_UNLIKELY')
+  return !explicits.every(explicit => explicit === 'VERY_UNLIKELY' || explicit === 'UNLIKELY' )
   
 }
 
 serve(async (req) => {
-  
   const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'authorization, content-type, x-client-info, apikey',
@@ -68,6 +67,7 @@ serve(async (req) => {
         status: 400,
       })
     }
+  
 
     // send request of labeling to GOOGLE_CLOUD_VISION
     const request = {
