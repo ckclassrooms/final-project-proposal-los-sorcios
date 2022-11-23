@@ -2,9 +2,10 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import { supabase } from '../supabaseClient';
 import { ShowBucket } from './ShowBucket'
+import { DropDownList } from "@progress/kendo-react-dropdowns"; 
+import '../App.css'
 
-
-function DisplayBuckets({file, setFile}) {
+function DisplayBuckets() {
 
     /**
      * this attribute represents an array of buckets
@@ -64,16 +65,59 @@ function DisplayBuckets({file, setFile}) {
       }, []);
 
 
+      /*
     return (
         <div className='container'>
         {labels != null &&
-            labels.map((el, index) => (<div key={index} ><button className='box' onClick={() => handleButton(el)}>{el}</button></div>))
+            labels.map((el, index) => (<div key={index} ><button class="btn btn-primary" onClick={() => handleButton(el)}>{el}</button></div>))
         }
             <div>
                 {label != null && <ShowBucket bucket={label} imgs={buckets} imageIndex={imageIndex} setImageIndex={setImageIndex}></ShowBucket>}
             </div>
         </div>
+        
        
+    )
+    */
+   /*
+   return (
+
+    <>
+        <div>
+        {label != null && <ShowBucket bucket={label} imgs={buckets} imageIndex={imageIndex} setImageIndex={setImageIndex}></ShowBucket>}
+        </div>
+        <ListGroup horizontal defaultActiveKey="#link1">
+            {labels != null &&
+            labels.map((el, index) => 
+            <ListGroup.Item action onClick={() => handleButton(el)}>
+            {el}
+        </ListGroup.Item>
+                )
+            }
+        <ListGroup.Item action href="#link1">
+            Link 1
+        </ListGroup.Item>
+        </ListGroup>
+        
+    </>
+   )
+   */
+
+    return (
+        <>
+            <div>
+                {label != null && <ShowBucket bucket={label} imgs={buckets} imageIndex={imageIndex} setImageIndex={setImageIndex}></ShowBucket>}
+            </div>
+            <section className="k-my-8">
+                <form className="k-form k-mb-4">
+                    <label className="k-label k-mb-3">Category</label>
+                    {
+                        labels != null &&
+                        <DropDownList data={labels} onChange={e => handleButton(e.value)} />
+                    }
+                </form>
+            </section>
+        </>
     )
 }
 

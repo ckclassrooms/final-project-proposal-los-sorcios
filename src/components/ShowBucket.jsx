@@ -1,3 +1,5 @@
+import { Close, Favorite } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
 import React, {useEffect, useState} from 'react'
 import { supabase } from '../supabaseClient';
 
@@ -27,7 +29,7 @@ function ShowBucket({bucket, imgs, imageIndex, setImageIndex}){
     async function rateAndSwitchImage(rating){
 
         // set rating to update
-        const inc = filteredImgs[imageIndex].rating + rating
+        const inc = rating
 
         // set name of the image to update
         const rated_name = filteredImgs[imageIndex].name
@@ -43,6 +45,7 @@ function ShowBucket({bucket, imgs, imageIndex, setImageIndex}){
         setImageIndex((imageIndex + 1) % filteredImgs.length)
     }
 
+    /*
     return (
         <>
         <div className='container'>
@@ -63,6 +66,36 @@ function ShowBucket({bucket, imgs, imageIndex, setImageIndex}){
         }
         </div>
         </>
+    );
+    */
+
+    return(
+        <>
+            <div >
+                <img src={supabase_url + filteredImgs[imageIndex].label + ':' + filteredImgs[imageIndex].name} 
+                style={{ 
+                    height: 450,
+                    width: 400,
+                    position: 'relative',
+                    left: '50%',
+                    transform: 'translate(-50%)'
+                }}
+                />
+                <div >
+                <IconButton className="SwipeButtons__right" onClick={() => rateAndSwitchImage(1)}
+                >
+                    <Favorite fontSize="small" />
+                </IconButton>
+                <IconButton className="SwipeButtons__left" onClick={() => rateAndSwitchImage(-1)}
+                >
+                    <Close fontSize="small" />
+                </IconButton>
+
+                </div>
+                
+            </div>
+        </>
+        
     )
 
 }

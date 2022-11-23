@@ -1,9 +1,9 @@
 import React from 'react'
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 import { supabase } from '../supabaseClient';
-import Nav from './Navbar'
 import '../App.css'
 import logo from '../assets/loading.gif'
+import { CDBInput, CDBContainer } from 'cdbreact';
 
 
 function AddImages({ file, setFile }) {
@@ -14,18 +14,17 @@ function AddImages({ file, setFile }) {
     const [loading, setLoading] = useState(false);
 
     const callLambda = async() =>{
-        const { data, error } = await supabase.functions.invoke('lambda', {
-          body: { name: file.name, size: file.size, type: file.type, base64: file.base64},
-        })
-        setLoading(false)
-        if(!error){
-          setDoneMessage('Image uploaded successfully!');
-        }
-        else{
-          setDoneMessage('Explicit content detected!')
-        }
-        
+      const { data, error } = await supabase.functions.invoke('lambda', {
+        body: { name: file.name, size: file.size, type: file.type, base64: file.base64},
+      })
+      setLoading(false)
+      if(!error){
+        setDoneMessage('Image uploaded successfully!');
       }
+      else{
+        setDoneMessage('Explicit content detected!')
+      }    
+    }
     
     const uploadImage = async() =>{
         setEnableUpload(false);
@@ -61,12 +60,14 @@ function AddImages({ file, setFile }) {
           setErrorMessage('Please upload an image (png, jpg etc.)')
         }
     };
-
+    
+    /*
     return (
         <>
         <div>
+            
             <input type="file" onChange={setLocalFile} />
-            <button disabled={!enableUpload} onClick={uploadImage}>Upload image</button>
+            <button disabled={!enableUpload} onClick={uploadImage} >Upload image</button>
             {
               loading && (<img className='loading' src={logo} alt="loading..."/>)
             }
@@ -81,6 +82,32 @@ function AddImages({ file, setFile }) {
         
         </>
     )
+    
+    */
+    
+        
+    return (
+      <>
+        <div>
+              <CDBInput type="file" color="primary" onChange={setLocalFile} />
+              <button disabled={!enableUpload} onClick={uploadImage} class="btn btn-primary">Upload image</button>
+              {
+                loading && (<img className='loading' src={logo} alt="loading..."/>)
+              }
+              
+          </div>
+          {
+            errorMessage && (<p className='error'>{errorMessage}</p>)
+          }
+          {
+            doneMessage && (<p className='message'>{doneMessage}</p>)
+          }
+      </>
+    );
+
+    
+    
+    
 }
 
-export default AddImages
+export default AddImages;
