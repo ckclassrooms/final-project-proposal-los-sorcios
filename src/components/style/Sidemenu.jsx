@@ -16,14 +16,5 @@ export default ({ toggleMenu }) => (
     <NavLink className="link" to="/displayBuckets" onClick={toggleMenu} end>
         Display Buckets
     </NavLink>
-    <NavLink className="link" to="/" onClick={toggleMenu}>
-      Page 1
-    </NavLink>
-    <NavLink className="link" to="/" onClick={toggleMenu}>
-      Page 2
-    </NavLink>
-    <NavLink className="link" to="/" onClick={toggleMenu}>
-      Page 3
-    </NavLink>
   </div>
 );
