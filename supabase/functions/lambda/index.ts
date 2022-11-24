@@ -28,11 +28,11 @@ serve(async (req) => {
   
   try {
     const file = await req.json()
-    // instantiate supabase client
+    const auth = 'Bearer '+Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
     const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
-      { global: { headers: { Authorization: req.headers.get('Authorization')! } } }
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
+      { global: { headers: { Authorization: auth } } }
     )
 
     // send request of explicit content detection to GOOGLE_CLOUD_VISION
@@ -95,10 +95,6 @@ serve(async (req) => {
     const datas = await response.json();
     const label = datas.responses[0].labelAnnotations[0].description
 
-    // insert image row in the database
-    const { _ } = await supabaseClient
-      .from('images')
-      .insert({ name: file.name, size: file.size, label: label })
 
     const name = label+':'+file.name
 
@@ -107,6 +103,16 @@ serve(async (req) => {
     .from('images')
     .upload( name, base64.toArrayBuffer(file.base64), {
       contentType: 'image/jpg'})
+
+    if(!error) {
+      // insert image row in the database
+      const { _ } = await supabaseClient
+        .from('images')
+        .insert({ name: file.name, size: file.size, label: label })
+    }
+    else{
+      console.log(error)
+    }
 
     //craft the response to be sent to the client
     return new Response(JSON.stringify(label), {

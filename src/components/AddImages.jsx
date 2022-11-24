@@ -49,6 +49,7 @@ function AddImages({ file, setFile }) {
     
     const setLocalFile = event => {
         setDoneMessage('')
+        console.log(event.target.files[0])
         let image_type = event.target.files[0].type.split('/')[0]
         if( image_type == 'image' ) {
           setErrorMessage('')
