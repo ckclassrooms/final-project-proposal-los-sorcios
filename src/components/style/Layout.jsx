@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import Sidebar from "react-sidebar";
 import Header from "./Header";
 import SideMenu from "./Sidemenu";
-import Searchbar from "./Searchbar";
+import Searchbar from "./SearchBar";
 
 const mql = window.matchMedia(`(min-width: 800px)`);
 
