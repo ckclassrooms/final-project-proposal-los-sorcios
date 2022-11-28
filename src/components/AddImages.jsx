@@ -7,7 +7,6 @@ import { CDBInput, CDBContainer } from 'cdbreact';
 
 
 function AddImages({ file, setFile }) {
-
     const [errorMessage, setErrorMessage] = useState('');
     const [enableUpload, setEnableUpload] = useState('');
     const [doneMessage, setDoneMessage] = useState('');
@@ -19,7 +18,7 @@ function AddImages({ file, setFile }) {
       })
       setLoading(false)
       if(!error){
-        setDoneMessage('Image uploaded successfully!');
+        setDoneMessage('Image uploaded successfully in the bucket:'+data);
       }
       else{
         setDoneMessage('Explicit content detected!')
@@ -61,32 +60,7 @@ function AddImages({ file, setFile }) {
           setErrorMessage('Please upload an image (png, jpg etc.)')
         }
     };
-    
-    /*
-    return (
-        <>
-        <div>
-            
-            <input type="file" onChange={setLocalFile} />
-            <button disabled={!enableUpload} onClick={uploadImage} >Upload image</button>
-            {
-              loading && (<img className='loading' src={logo} alt="loading..."/>)
-            }
-            
-        </div>
-        {
-          errorMessage && (<p className='error'>{errorMessage}</p>)
-        }
-        {
-          doneMessage && (<p className='message'>{doneMessage}</p>)
-        }
-        
-        </>
-    )
-    
-    */
-    
-        
+      
     return (
       <>
         <div>
@@ -95,7 +69,6 @@ function AddImages({ file, setFile }) {
               {
                 loading && (<img className='loading' src={logo} alt="loading..."/>)
               }
-              
           </div>
           {
             errorMessage && (<p className='error'>{errorMessage}</p>)
@@ -105,10 +78,6 @@ function AddImages({ file, setFile }) {
           }
       </>
     );
-
-    
-    
-    
 }
 
 export default AddImages;

@@ -85,6 +85,7 @@ serve(async (req) => {
         }
       ]
     }
+
     const response = await fetch(
       Deno.env.get('GOOGLE_VISION_URL') ?? '', {
       method : 'POST',
@@ -94,8 +95,6 @@ serve(async (req) => {
 
     const datas = await response.json();
     const label = datas.responses[0].labelAnnotations[0].description
-
-
     const name = label+':'+file.name
 
     // insert image in the bucket
@@ -119,6 +118,7 @@ serve(async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 200,
     })
+    
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
