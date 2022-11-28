@@ -18,7 +18,7 @@ function AddImages({ file, setFile }) {
       })
       setLoading(false)
       if(!error){
-        setDoneMessage('Image uploaded successfully in the bucket:'+data);
+        setDoneMessage('Image uploaded successfully in the bucket : '+ data);
       }
       else{
         setDoneMessage('Explicit content detected!')

@@ -8,13 +8,13 @@ export default ({ toggleMenu }) => (
         Home
     </NavLink>
     <NavLink className="link" to="/addImages" onClick={toggleMenu} end>
-        Add Images
+        Upload images
     </NavLink>
     <NavLink className="link" to="/displayImages" onClick={toggleMenu} end>
-        Display Images
+        Display top images
     </NavLink>
     <NavLink className="link" to="/displayBuckets" onClick={toggleMenu} end>
-        Display Buckets
+        Display buckets & Rate
     </NavLink>
   </div>
 );

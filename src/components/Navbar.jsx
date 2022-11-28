@@ -8,11 +8,11 @@ function Nav() {
         <li className="nav-item"><NavLink className={({ isActive }) => "nav-link " + (isActive ? " active" : "")}
             to="/" end>Home</NavLink></li>
         <li className="nav-item"><NavLink className={({ isActive }) => "nav-link " + (isActive ? " active" : "")}
-            to="/addImages" end>Add Images</NavLink></li>
+            to="/addImages" end>Upload Images</NavLink></li>
         <li className="nav-item"><NavLink className={({ isActive }) => "nav-link " + (isActive ? " active" : "")}
-            to="/displayImages" end>Display Images</NavLink></li>
+            to="/displayImages" end>Display Top Images</NavLink></li>
         <li className="nav-item"><NavLink className={({ isActive }) => "nav-link " + (isActive ? " active" : "")}
-            to="/displayBuckets" end>Display Buckets</NavLink></li>
+            to="/displayBuckets" end>Dislay Buckets & Rate</NavLink></li>
     </ul>)
 }
 
