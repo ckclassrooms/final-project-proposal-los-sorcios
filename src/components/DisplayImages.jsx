@@ -33,19 +33,6 @@ function DisplayImages() {
             <TitlebarImageList />
         </div>
       )
-      /*
-    return (
-        <>
-        <div className='container'>
-        {imgs != null &&
-            imgs.map((singleImg, index) => (<div><img src={supabase_url+singleImg.label+':'+singleImg.name} height={200} width={200}/><p>{singleImg.name.split(':')[0]}</p></div>))
-        }
-        </div>
-        </>
-    )
-        */
-
-
 
 function TitlebarImageList() {
   return (
@@ -74,14 +61,6 @@ function TitlebarImageList() {
             align="center"
             title={item.label}
             subtitle={"Image number " + (index + 1) + "\n Rating " + item.rating}
-            actionIcon={
-              <IconButton
-                sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                aria-label={`info about ${item.label}`}
-              >
-                <InfoIcon />
-              </IconButton>
-            }
           />
         </ImageListItem>
       ))}

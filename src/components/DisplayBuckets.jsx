@@ -27,6 +27,19 @@ function DisplayBuckets() {
      * the bucket selected of the label "label"
      */
     const [imageIndex, setImageIndex] = useState(0)
+
+    /**
+     * this attribute represents the default message to display in the 
+     * dropdownlist
+     */
+    const defaultMessage = "Select bucket ..."
+
+    /**
+     * this attribute represents the default message to dispaly
+     * to guide the users and give information about the page
+     * functionality
+     */
+    const defaultLabelMessage = "Choose your favourite bucket and rate!"
    
     /**
      * this funciton fetches all the images metadata from the
@@ -48,11 +61,15 @@ function DisplayBuckets() {
      * this function handles a button press
      * in particular it reset the image index to zero and
      * set the label, such that the bucket can be displayed
-     * @param {*} el this is the label of the bucket to show
+     * if the label is the default message, then it just
+     * resets itself
+     * @param {*} el this is the label of the bucket to show, or 
+     *              the default message
      */
     function handleButton(el){
         setImageIndex(0)
-        setLabel(el)
+        el === defaultMessage ? setLabel(null) : setLabel(el)
+        
 
     }
 
@@ -64,45 +81,6 @@ function DisplayBuckets() {
         fetchBuckets();
       }, []);
 
-
-      /*
-    return (
-        <div className='container'>
-        {labels != null &&
-            labels.map((el, index) => (<div key={index} ><button class="btn btn-primary" onClick={() => handleButton(el)}>{el}</button></div>))
-        }
-            <div>
-                {label != null && <ShowBucket bucket={label} imgs={buckets} imageIndex={imageIndex} setImageIndex={setImageIndex}></ShowBucket>}
-            </div>
-        </div>
-        
-       
-    )
-    */
-   /*
-   return (
-
-    <>
-        <div>
-        {label != null && <ShowBucket bucket={label} imgs={buckets} imageIndex={imageIndex} setImageIndex={setImageIndex}></ShowBucket>}
-        </div>
-        <ListGroup horizontal defaultActiveKey="#link1">
-            {labels != null &&
-            labels.map((el, index) => 
-            <ListGroup.Item action onClick={() => handleButton(el)}>
-            {el}
-        </ListGroup.Item>
-                )
-            }
-        <ListGroup.Item action href="#link1">
-            Link 1
-        </ListGroup.Item>
-        </ListGroup>
-        
-    </>
-   )
-   */
-
     return (
         <>
             <div>
@@ -110,10 +88,10 @@ function DisplayBuckets() {
             </div>
             <section className="k-my-8">
                 <form className="k-form k-mb-4">
-                    <label className="k-label k-mb-3">Category</label>
+                    <label className="k-label k-mb-3">{defaultLabelMessage}</label>
                     {
                         labels != null &&
-                        <DropDownList data={labels} onChange={e => handleButton(e.value)} />
+                        <DropDownList data={labels} defaultItem={defaultMessage} onChange={e => handleButton(e.value)} />
                     }
                 </form>
             </section>

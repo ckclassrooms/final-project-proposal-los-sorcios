@@ -2,6 +2,8 @@ import { Close, Favorite } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import React, {useEffect, useState} from 'react'
 import { supabase } from '../supabaseClient';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function ShowBucket({bucket, imgs, imageIndex, setImageIndex}){
@@ -40,34 +42,22 @@ function ShowBucket({bucket, imgs, imageIndex, setImageIndex}){
                 inc, 
                 rated_name
             })
+        
+        // show popup
+        if(rating == 1){
+            toast.success("Rated with like!",{
+                autoClose: 1000,
+            })
+        }
+        else{
+            toast.error("Rated with dislike!",{
+                autoClose: 1000,
+            })
+        }
 
         // update the index of the images to display
         setImageIndex((imageIndex + 1) % filteredImgs.length)
     }
-
-    /*
-    return (
-        <>
-        <div className='container'>
-        {(filteredImgs != null && filteredImgs != undefined) &&
-            <div>
-                <img src={supabase_url + filteredImgs[imageIndex].label + ':' + filteredImgs[imageIndex].name} height={200} width={200}/>
-                    <p>
-                        {filteredImgs[imageIndex].name}
-                    </p>
-
-                <button onClick={() => rateAndSwitchImage(1)}>
-                    HOT
-                </button>
-                <button onClick={() => rateAndSwitchImage(-1)}>
-                    NOT
-                </button>
-            </div>
-        }
-        </div>
-        </>
-    );
-    */
 
     return(
         <>
@@ -90,6 +80,8 @@ function ShowBucket({bucket, imgs, imageIndex, setImageIndex}){
                 >
                     <Close fontSize="small" />
                 </IconButton>
+
+                <ToastContainer />
 
                 </div>
                 
