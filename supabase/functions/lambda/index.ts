@@ -96,18 +96,28 @@ serve(async (req) => {
     const datas = await response.json();
     const label = datas.responses[0].labelAnnotations[0].description
     const name = label+':'+file.name
+    const date_ob = new Date();
+
+    // current date as DD
+    let date = ("0" + date_ob.getDate()).slice(-2);
+    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+    let year = date_ob.getFullYear();
+    let hours = date_ob.getHours();
+    let minutes = date_ob.getMinutes();
+    let seconds = date_ob.getSeconds();
+    const timest = year + "-" + month + "-" + date + hours + ":" + minutes + ":" + seconds;
 
     // insert image in the bucket
     const { data, error } = await supabaseClient.storage
     .from('images')
-    .upload( name, base64.toArrayBuffer(file.base64), {
+    .upload( name+timest, base64.toArrayBuffer(file.base64), {
       contentType: 'image/jpg'})
 
     if(!error) {
       // insert image row in the database
       const { _ } = await supabaseClient
         .from('images')
-        .insert({ name: file.name, size: file.size, label: label })
+        .insert({ name: file.name+timest, size: file.size, label: label })
     }
     else{
       console.log(error)
