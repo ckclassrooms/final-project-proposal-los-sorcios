@@ -1,6 +1,6 @@
 # Project Proposal
 
-Link to our deployed website : (Website)[https://comforting-selkie-9865de.netlify.app/]
+Link to our deployed website : [Website](https://comforting-selkie-9865de.netlify.app/)
 
 ## Update
 
