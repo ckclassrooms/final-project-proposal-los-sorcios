@@ -10,17 +10,17 @@ The old readme can be found [here](https://github.com/ckclassrooms/final-project
 ## What does your application do?
 
 The main functionality of our application is to allow users to upload images, that will be first filtered through the Google Safe Search third party API, and then classified with the Google Cloud Vision third party API.
-For each category there will be a separate bucket into which the image will be stored with similar ones. Once the user access this bucket, he/she can do two actions :
+For each category there will be a separate bucket into which the image will be stored with similar ones. Furthermore the user can :
 
-1. rate images
-2. view the images sorted by rates (first 10)
+1. view and rate images of a specific bucket
+2. view the images sorted by rates across all buckets (first 10)
 
 ## What makes it different than a CRUD app
 
-It is different because of two main functionlaities:
+It is different because of the following main functionlaities:
 
-1. the use of a third party classifier
-2. the use of a third party filter
+1. the use of a third party image classifier
+2. the use of a third party image filter
 3. the use of an edge function
 4. the use of an RPC call through supabase to rate images
 
@@ -35,7 +35,7 @@ The main concerns are :
 
 ## Building blocks of our architecture
 
-Our building block can be
+Our building block can be :
 
 1. The use of a database to store buckets and images metadata
 2. A front end application to display content and allow users to interact with the app
